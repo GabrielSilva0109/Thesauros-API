@@ -49,7 +49,8 @@ Função para selecionar o vencedor de forma justa e transparente.
 c. Contrato de Distribuição de Prêmios
 Automatização do pagamento dos prêmios aos vencedores.
 Função para distribuir os fundos acumulados entre os vencedores de acordo com as regras do sorteio.
-4. Interface do Usuário (Frontend)
+
+## 4 Interface do Usuário (Frontend)
 Tecnologias:
 Frameworks: React.js, Vue.js ou Angular.
 Conexão com Metamask: Integração da carteira Metamask para permitir que os usuários interajam com a DApp.
