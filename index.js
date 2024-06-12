@@ -10,8 +10,8 @@ app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send('Welcome to Thesauros BSC!')
-});
+})
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)
-});
+})
