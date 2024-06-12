@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000
 
 app.use(express.json())
 
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Welcome to Thesauros!')
 })
 
