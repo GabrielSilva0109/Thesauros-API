@@ -12,4 +12,11 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)
+    connection.connect((err) => {
+        if (err) {
+            console.error('Erro connection DATABASE:', err.stack)
+            return;
+        }
+        console.log('Connection DATABASE ON!! ' + connection.threadId)
+    })
 })
