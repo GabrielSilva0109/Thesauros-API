@@ -18,10 +18,10 @@ app.get('/', (req, res) => {
     res.send('Welcome to Thesauros!');
 });
 
-app.use('/api', (req, res, next) => {
-    console.log('Received request for /api');
-    next();
-}, userRoutes);
+// app.use('/api', (req, res, next) => {
+//     console.log('Received request for /api');
+//     next();
+// }, userRoutes);
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`);
