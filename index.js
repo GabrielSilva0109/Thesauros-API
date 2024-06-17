@@ -7,6 +7,8 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+console.log('Starting the application...');
+
 const userRoutes = require('./routes/UserRoutes');
 
 app.use(express.json());
@@ -16,7 +18,10 @@ app.get('/', (req, res) => {
     res.send('Welcome to Thesauros!');
 });
 
-app.use('/api', userRoutes);
+app.use('/api', (req, res, next) => {
+    console.log('Received request for /api');
+    next();
+}, userRoutes);
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`);
