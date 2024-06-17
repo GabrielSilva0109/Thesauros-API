@@ -11,8 +11,8 @@ const userRoutes = require('./routes/UserRoutes')
 app.use(express.json())
 app.use(cors())
 
-app.get('/', async (req, res) => {
-    res.send('Welcome to Thesauros!')
+app.get('/', (req, res) => {
+     res.send('Welcome to Thesauros!')
 })
 
 app.use('/api', userRoutes)
