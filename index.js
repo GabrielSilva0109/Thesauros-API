@@ -15,9 +15,7 @@ app.get('/', async (req, res) => {
     res.send('Welcome to Thesauros!')
 })
 
-// app.use('/api', userRoutes)
-
-
+app.use('/api', userRoutes)
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)
