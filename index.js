@@ -4,18 +4,20 @@ const express = require('express')
 const Web3 = require('web3')
 
 const app = express()
+const port = process.env.PORT || 3000
 
-// const userRoutes = require('./routes/UserRoutes')
+const userRoutes = require('./routes/UserRoutes')
 
 app.use(express.json())
-
-// app.use('/api', userRoutes)
+app.use(cors())
 
 app.get('/', async (req, res) => {
     res.send('Welcome to Thesauros!')
 })
 
-const port = process.env.PORT || 3000
+// app.use('/api', userRoutes)
+
+
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)
