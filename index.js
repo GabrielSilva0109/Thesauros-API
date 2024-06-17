@@ -1,29 +1,30 @@
-const cors = require('cors')
-const connection = require('./db')
-const express = require('express')
-const Web3 = require('web3')
-require('dotenv').config()
+const cors = require('cors');
+const connection = require('./db');
+const express = require('express');
+const Web3 = require('web3');
+require('dotenv').config();
 
-const app = express()
-const port = process.env.PORT || 3000
+const app = express();
+const port = process.env.PORT || 3000;
 
-const userRoutes = require('./routes/UserRoutes')
+const userRoutes = require('./routes/UserRoutes');
 
-app.use(express.json())
+app.use(express.json());
+app.use(cors()); // Adicione CORS se for necessário
 
 app.get('/', (req, res) => {
-    res.send('Welcome to Thesauros!')
-})
+    res.send('Welcome to Thesauros!');
+});
 
-app.use('/api', userRoutes)
+app.use('/api', userRoutes);
 
 app.listen(port, () => {
-    console.log(`Listening to port ${port}`)
+    console.log(`Listening to port ${port}`);
     connection.connect((err) => {
         if (err) {
-            console.error('Erro connection DATABASE:', err.stack)
-            return;
+            console.error('Error connecting to DATABASE:', err.stack);
+            process.exit(1); // Saia do processo se a conexão falhar
         }
-        console.log('Connection DATABASE ON!! ' + connection.threadId)
-    })
-})
+        console.log('Connected to DATABASE! Thread ID: ' + connection.threadId);
+    });
+});
