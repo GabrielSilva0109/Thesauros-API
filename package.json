@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "Funcionalidades Principais:\r Compra de Bilhetes:",
   "main": "index.js",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +19,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.4.1",
+    "mysql": "^2.18.1",
     "mysql2": "^3.10.0",
     "sequelize": "^6.37.3",
     "web3": "^4.9.0"
