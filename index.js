@@ -10,7 +10,7 @@ const userRoutes = require('./src/routes/UserRoutes')
 
 app.use(express.json())
 
-app.use('/api', userRoutes)
+// app.use('/api', userRoutes)
 
 app.get('/', (req, res) => {
     res.send('Welcome to Thesauros!')
