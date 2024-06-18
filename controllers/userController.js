@@ -46,19 +46,19 @@ exports.getUserById = (req, res) => {
     })
 }
 
-//Create User
+// Create User
 exports.createUser = async (req, res) => {
-    const { name, password, address, balance, created_at } = req.body
+    const { name, password, email, address, balance, created_at } = req.body;
 
-    if(!name || !address || !password){
-        return res.status(400).json({error: 'Required fields are missing'})
+    if (!name || !address || !password || !email) {
+        return res.status(400).json({ error: 'Required fields are missing' });
     }
 
     try {
-        const hashedPassword = await hashPassword(password)
-        const query = "INSERT INTO users (name, password, address, balance, created_at) VALUES (?, ?, ?, ?, ?);"
+        const hashedPassword = await hashPassword(password);
+        const query = "INSERT INTO users (name, password, email, address, balance, created_at) VALUES (?, ?, ?, ?, ?, ?);"
 
-        db.query(query,[name, hashedPassword, address, balance, created_at], (erro, results) => {
+        db.query(query, [name, hashedPassword, email, address, balance, created_at], (erro, results) => {
             if (erro) {
                 return res.status(500).json({ error: erro.message })
             }
@@ -66,6 +66,12 @@ exports.createUser = async (req, res) => {
         })
     } catch (error) {
         console.error('Error to Create User!', error)
-        res.status(500).json({error: 'Failed to create User'})
+        res.status(500).json({ error: 'Failed to create User' })
     }
 }
+
+// exports.updateUser = async (req, res) => {
+//     const { name, password, balance  } = req.body
+
+
+// }
