@@ -5,6 +5,7 @@ const Web3 = require('web3')
 
 //APIs
 const userRoutes = require('./routes/userRoutes')
+const ticketRoutes = require('./routes/ticketRoutes')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -16,7 +17,7 @@ app.get('/', (req, res) => {
      res.send('Welcome to Thesauros!')
 })
 
-app.use('/api', userRoutes)
+app.use('/api', userRoutes, ticketRoutes)
     
 
 app.listen(port, () => {
