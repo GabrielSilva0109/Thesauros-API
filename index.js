@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 
 app.use('/api', userRoutes)
     
+
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)
     connection.connect((err) => {
