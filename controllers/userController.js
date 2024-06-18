@@ -27,21 +27,21 @@ exports.getUserById = (req, res) => {
     });
 };
 
-// Create User
-exports.createUser = (req, res) => {
-    const { name, password, address, balance, created_at } = req.body;
+// // Create User
+// exports.createUser = (req, res) => {
+//     const { name, password, address, balance, created_at } = req.body;
 
-    if (!name || !address || !password) {
-        return res.status(400).json({ error: 'Required fields are missing' });
-    }
+//     if (!name || !address || !password) {
+//         return res.status(400).json({ error: 'Required fields are missing' });
+//     }
 
-    const hashedPassword = bcrypt.hashSync(password, 10);
+//     const hashedPassword = bcrypt.hashSync(password, 10);
 
-    const query = "INSERT INTO users (name, password, address, balance, created_at) VALUES (?, ?, ?, ?, ?);";
-    db.query(query, [name, hashedPassword, address, balance, created_at], (erro, results) => {
-        if (erro) {
-            return res.status(500).json({ error: erro.message });
-        }
-        res.status(201).json({ message: 'User created successfully' });
-    });
-};
+//     const query = "INSERT INTO users (name, password, address, balance, created_at) VALUES (?, ?, ?, ?, ?);";
+//     db.query(query, [name, hashedPassword, address, balance, created_at], (erro, results) => {
+//         if (erro) {
+//             return res.status(500).json({ error: erro.message });
+//         }
+//         res.status(201).json({ message: 'User created successfully' });
+//     });
+// };
