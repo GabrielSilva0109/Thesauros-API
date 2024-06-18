@@ -11,7 +11,7 @@ exports.getAllUsers = (req, res) => {
         res.status(200).json(results)
     })
 }
-
+//seikla
 
 //Get User By ID
 exports.getUserById = (req, res) => {
