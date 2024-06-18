@@ -7,5 +7,6 @@ router.get('/', (req, res) => {
 })
 
 router.get('/users', userController.getAllUsers)
+router.get('/user/:id', userController.getUserById)
 
 module.exports = router
