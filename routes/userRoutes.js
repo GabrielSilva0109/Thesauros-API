@@ -6,6 +6,6 @@ router.get('/', (req, res) => {
     res.send('API DO USERS')
 })
 
-router.get(('/users', userController.getAllUsers()))
+router.get('/users', userController.getAllUsers)
 
 module.exports = router
