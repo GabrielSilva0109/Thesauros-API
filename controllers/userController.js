@@ -1,5 +1,6 @@
 const db = require('../db')
 // const bcrypt = require('bcrypt')
+const argon2 = require('argon2')
 
 //Get ALL Users
 exports.getAllUsers = (req, res) => {
