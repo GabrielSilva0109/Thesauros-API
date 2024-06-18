@@ -92,3 +92,23 @@ Realizar testes abrangentes e implementar medidas de segurança.
 Lançar a plataforma em uma testnet e iterar com base no feedback.
 Executar uma auditoria de segurança antes do lançamento na mainnet.
 Implementar estratégias de marketing e parcerias para o lançamento.
+
+
+# Rotas da API
+GET /api/users - 
+Retorna todos os usuários cadastrados.
+
+GET /api/user/:id - 
+Retorna um usuário específico pelo ID.
+
+POST /api/user - 
+Cria um novo usuário. Deve enviar no corpo da requisição os campos: name, email, password, address, balance, created_at.
+
+PUT /api/user/:id - 
+Atualiza um usuário existente pelo ID. Pode atualizar os campos name, password e balance.
+
+DELETE /api/user/:id - 
+Deleta um usuário específico pelo ID.
+
+GET /api/login - 
+Realiza o login de um usuário. Deve enviar no corpo da requisição os campos email e password.
