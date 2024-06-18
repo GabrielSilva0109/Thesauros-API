@@ -134,3 +134,44 @@ exports.deleteUser = (req, res) => {
         res.status(200).json({ message: 'User deleted successfully' })
     })
 }
+
+// Login User
+exports.loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body
+
+        if (!email || !password) {
+            return res.status(400).json({ error: 'Email and password are required' })
+        }
+
+        const query = "SELECT * FROM users WHERE email = ?"
+        db.query(query, [email], async (error, results) => {
+            if (error) {
+                return res.status(500).json({ error: error.message })
+            }
+
+            if (results.length === 0) {
+                return res.status(404).json({ error: 'User not found' })
+            }
+
+            const user = results[0]
+
+            try {
+                if (await argon2.verify(user.password, password)) {
+                    // Senha válida
+                    res.status(200).json({ message: 'Login successful' })
+                } else {
+                    // Senha inválida
+                    res.status(401).json({ error: 'Invalid password' })
+                }
+            } catch (err) {
+                console.error('Error verifying password:', err)
+                res.status(500).json({ error: 'Failed to verify password' })
+            }
+        })
+
+    } catch (error) {
+        console.error('Error logging in user:', error)
+        res.status(500).json({ error: 'Failed to login user' })
+    }
+}
