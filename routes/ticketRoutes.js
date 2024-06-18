@@ -7,5 +7,10 @@ router.get('/1', (req, res) => {
 })
 
 router.get('/tickets', ticketController.getAllTickets)
+router.get('/ticket/:id', ticketController.getTicketById)
+router.get('/ticketsUser/:id', ticketController.getTicketsByUserId)
+router.post('/ticket', ticketController.createTicket)
+router.delete('/ticket/:id', ticketController.deleteTicketById)
+router.delete('/ticketsUser/:id', ticketController.deleteAllTicketsByUserId);
 
 module.exports = router
