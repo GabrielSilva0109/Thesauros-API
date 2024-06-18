@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
      res.send('Welcome to Thesauros!')
 })
 
-app.use('/api', (res, req) => {
+app.use('/api', (req, res) => {
     res.send("APIs : " )
 })
 
