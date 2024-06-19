@@ -81,7 +81,7 @@ exports.createTicket = async (req, res) => {
         const query = "INSERT INTO tickets (user_id, ticket_number, ticket_cost) VALUES (?, ?, ?)";
         const result = await db.promise().query(query, [user_id, ticket_number, ticket_cost]);
 
-        res.status(201).json({ message: 'Ticket created successfully' });
+        res.status(201).json({ message: 'Ticket created successfully' , user })
     } catch (error) {
         console.error('Failed to create ticket:', error);
         res.status(500).json({ error: 'Failed to create ticket' });
