@@ -2,7 +2,7 @@ const Web3 = require('web3')
 const connection = require('./db')
 const cors = require('cors')
 const express = require('express')
-const ensureDbConnection = require('./middleware/dbConnection')
+// const ensureDbConnection = require('./middleware/dbConnection')
 
 //APIs
 const userRoutes = require('./routes/userRoutes')
@@ -18,10 +18,9 @@ app.get('/', (req, res) => {
      res.send('Welcome to Thesauros!')
 })
 
-app.use(ensureDbConnection)
+// app.use(ensureDbConnection)
 
-app.use('/api', userRoutes)
-app.use('/api', ticketRoutes)
+app.use('/api', userRoutes, ticketRoutes)
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)
