@@ -59,24 +59,32 @@ exports.getTicketsByUserId = (req, res) => {
 }
 
 //Create Tickets
-exports.createTicket = (req, res) => {
+exports.createTicket = async (req, res) => {
     const { user_id, ticket_cost } = req.body;
 
     if (!user_id || !ticket_cost) {
-        return res.status(400).json({ error: 'Required fields are missing' });
+        return res.status(400).json({ error: 'Required fields are missing' })
     }
 
-    const ticket_number = generateRandomLetters(3) + generateRandomNumber(4);
-
-    const query = "INSERT INTO tickets (user_id, ticket_number, ticket_cost) VALUES (?, ?, ?)";
-    const values = [user_id, ticket_number, ticket_cost];
-
-    db.query(query, values, (error, results) => {
-        if (error) {
-            return res.status(500).json({ error: error.message });
+    try {
+        const [user] = await db.promise().query('SELECT * FROM users WHERE user_id = ?', [user_id])
+        
+        if (!user.length) {
+            return res.status(404).json({ error: 'User not found' });
         }
-        res.status(201).json({ message: 'Ticket created successfully' });
-    });
+
+        // Gera o número do ticket
+        const ticket_number = generateRandomLetters(3) + generateRandomNumber(4);
+
+        // Insere o ticket no banco de dados
+        const query = "INSERT INTO tickets (user_id, ticket_number, ticket_cost) VALUES (?, ?, ?)";
+        const result = await db.promise().query(query, [user_id, ticket_number, ticket_cost]);
+
+        res.status(201).json({ message: 'Ticket created successfully' })
+    } catch (error) {
+        console.error('Failed to create ticket:', error);
+        res.status(500).json({ error: 'Failed to create ticket' });
+    }
 }
 
 // Delete Ticket
@@ -111,30 +119,27 @@ exports.deleteAllTicketsByUserId = (req, res) => {
     })
 }
 
+// Seleciona aleatoriamente um ticket como vencedor
+exports.selectWinner = (req, res) => {
+    const query = "SELECT * FROM tickets WHERE is_winner = 0 " 
+    db.query(query, (error, results) => {
+        if (error) {
+            return res.status(500).json({ error: error.message })
+        }
 
-// // Seleciona aleatoriamente um ticket como vencedor
-// exports.selectWinner = (req, res) => {
-//     const query = "SELECT * FROM tickets WHERE is_winner = 0";
-//     db.query(query, (error, results) => {
-//         if (error) {
-//             return res.status(500).json({ error: error.message });
-//         }
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'No tickets found' })
+        }
 
-//         if (results.length === 0) {
-//             return res.status(404).json({ error: 'No tickets found' });
-//         }
+        const winnerIndex = Math.floor(Math.random() * results.length)
+        const winningTicket = results[winnerIndex]
 
-//         // Seleciona aleatoriamente um ticket como vencedor
-//         const winnerIndex = Math.floor(Math.random() * results.length);
-//         const winningTicket = results[winnerIndex];
-
-//         // Atualiza o ticket selecionado como vencedor
-//         const updateQuery = "UPDATE tickets SET is_winner = 1 WHERE ticket_id = ?";
-//         db.query(updateQuery, [winningTicket.ticket_id], (updateError, updateResults) => {
-//             if (updateError) {
-//                 return res.status(500).json({ error: updateError.message });
-//             }
-//             res.status(200).json({ message: 'Winner selected successfully', winner: winningTicket });
-//         });
-//     });
-// };
+        const updateQuery = "UPDATE tickets SET is_winner = 1 WHERE ticket_id = ?"
+        db.query(updateQuery, [winningTicket.ticket_id], (updateError, updateResults) => {
+            if (updateError) {
+                return res.status(500).json({ error: updateError.message });
+            }
+            res.status(200).json({ message: 'Winner selected successfully', winner: winningTicket });
+        })
+    })
+}
