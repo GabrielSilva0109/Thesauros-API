@@ -1,7 +1,8 @@
-const cors = require('cors')
-const connection = require('./db')
-const express = require('express')
 const Web3 = require('web3')
+const connection = require('./db')
+const cors = require('cors')
+const express = require('express')
+const ensureDbConnection = require('./middleware/dbConnection')
 
 //APIs
 const userRoutes = require('./routes/userRoutes')
