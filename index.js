@@ -18,16 +18,18 @@ app.get('/', (req, res) => {
      res.send('Welcome to Thesauros!')
 })
 
-app.use('/api', userRoutes, ticketRoutes)
-//Test inital for Branch  
+app.use(ensureDbConnection)
+
+app.use('/api', userRoutes)
+app.use('/api', ticketRoutes)
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)
-    connection.connect((err) => {
-        if (err) {
-            console.error('Error connection DATABASE:', err.stack)
-            return;
-        }
-        console.log('Connection DATABASE ON!! ' + connection.threadId)
-    })
+    // connection.connect((err) => {
+    //     if (err) {
+    //         console.error('Error connection DATABASE:', err.stack)
+    //         return;
+    //     }
+    //     console.log('Connection DATABASE ON!! ' + connection.threadId)
+    // })
 })
