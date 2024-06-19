@@ -4,8 +4,6 @@ const cors = require('cors')
 const express = require('express')
 // const ensureDbConnection = require('./middleware/dbConnection')
 
-//TESTE @@@@
-
 //APIs
 const userRoutes = require('./routes/userRoutes')
 const ticketRoutes = require('./routes/ticketRoutes')
