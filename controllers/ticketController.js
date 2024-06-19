@@ -63,12 +63,13 @@ exports.createTicket = async (req, res) => {
     const { user_id, ticket_cost } = req.body;
 
     if (!user_id || !ticket_cost) {
-        return res.status(400).json({ error: 'Required fields are missing' })
+        return res.status(400).json({ error: 'Required fields are missing' });
     }
 
     try {
-        const [user] = await db.promise().query('SELECT * FROM users WHERE user_id = ?', [user_id])
-        
+        // Verifica se o usuário existe
+        const [user] = await db.promise().query('SELECT * FROM users WHERE user_id = ?', [user_id]);
+
         if (!user.length) {
             return res.status(404).json({ error: 'User not found' });
         }
@@ -80,7 +81,7 @@ exports.createTicket = async (req, res) => {
         const query = "INSERT INTO tickets (user_id, ticket_number, ticket_cost) VALUES (?, ?, ?)";
         const result = await db.promise().query(query, [user_id, ticket_number, ticket_cost]);
 
-        res.status(201).json({ message: 'Ticket created successfully' })
+        res.status(201).json({ message: 'Ticket created successfully' });
     } catch (error) {
         console.error('Failed to create ticket:', error);
         res.status(500).json({ error: 'Failed to create ticket' });
