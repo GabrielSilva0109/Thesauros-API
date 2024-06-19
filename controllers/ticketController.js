@@ -47,15 +47,15 @@ exports.getTicketById = (req, res) => {
 }
 
 exports.getTicketsByUserId = (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.params.id
 
-    const query = "SELECT * FROM tickets WHERE user_id = ?";
+    const query = "SELECT * FROM tickets WHERE user_id = ?"
     db.query(query, [userId], (error, results) => {
         if (error) {
-            return res.status(500).json({ error: error.message });
+            return res.status(500).json({ error: error.message })
         }
-        res.status(200).json(results);
-    });
+        res.status(200).json(results)
+    })
 }
 
 //Create Tickets
